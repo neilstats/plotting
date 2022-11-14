@@ -18,7 +18,7 @@
     "href": "posts/ckbplotr/removing-parts.html",
     "title": "Removing parts of a plot created with shape_plot() or forest_plot()",
     "section": "",
-    "text": "forest_plot(panels   = list(resultsA, resultsB),\n            col.key  = \"variable\",\n            colour   = NA,\n            cicolour = \"black\")\n\n\n\n\n\nforest_plot(panels    = list(resultsA, resultsB),\n            col.key   = \"variable\",\n            pointsize = 0)\n\n\n\n\n\nforest_plot(panels   = list(resultsA, resultsB),\n            col.key  = \"variable\",\n            colour   = \"black\",\n            cicolour = NA)"
+    "text": "Remove points by setting their colour to NA:\n\nforest_plot(panels   = list(resultsA, resultsB),\n            col.key  = \"variable\",\n            colour   = NA,\n            cicolour = \"black\")\n\n\n\n\nRemove points by setting their size to zero:\n\nforest_plot(panels    = list(resultsA, resultsB),\n            col.key   = \"variable\",\n            pointsize = 0)\n\n\n\n\nRemove confidence interval lines by setting thier colour to NA:\n\nforest_plot(panels   = list(resultsA, resultsB),\n            col.key  = \"variable\",\n            colour   = \"black\",\n            cicolour = NA)\n\n\n\n\nRemove points by removing that layer of the ggplot object:\n\nforest <- forest_plot(panels    = list(resultsA, resultsB),\n                      col.key   = \"variable\",\n                      printplot = FALSE)\n\n## first check which layer in forest$plot\n## is the geom_point() for points, then remove\nforest$plot$layers[[2]] <- NULL\nforest$plot"
   },
   {
     "objectID": "posts/ggplot/extract-a-ggplot-legend.html",
