@@ -11,6 +11,7 @@ resultsA <- dplyr::filter(ckbplotr_forest_data, name == "A")
 resultsB <- dplyr::filter(ckbplotr_forest_data, name == "B")
 ```
 
+Remove points by setting their colour to NA:
 ```{r}
 #| warning: false
 forest_plot(panels   = list(resultsA, resultsB),
@@ -19,6 +20,7 @@ forest_plot(panels   = list(resultsA, resultsB),
             cicolour = "black")
 ```
 
+Remove points by setting their size to zero:
 ```{r}
 #| warning: false
 forest_plot(panels    = list(resultsA, resultsB),
@@ -26,10 +28,24 @@ forest_plot(panels    = list(resultsA, resultsB),
             pointsize = 0)
 ```
 
+Remove confidence interval lines by setting thier colour to NA:
 ```{r}
 #| warning: false
 forest_plot(panels   = list(resultsA, resultsB),
             col.key  = "variable",
             colour   = "black",
             cicolour = NA)
+```
+
+Remove points by removing that layer of the ggplot object:
+```{r}
+#| warning: false
+forest <- forest_plot(panels    = list(resultsA, resultsB),
+                      col.key   = "variable",
+                      printplot = FALSE)
+
+## first check which layer in forest$plot
+## is the geom_point() for points, then remove
+forest$plot$layers[[2]] <- NULL
+forest$plot
 ```
