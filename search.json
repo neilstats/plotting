@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "posts/ckbplotr/forest-plot-spacing/index.html",
+    "href": "posts/ckbplotr/forest-plot-spacing/index.html",
+    "title": "Spacing with forest_plot()",
+    "section": "",
+    "text": "A PDF file explaining the forest_plot() spacing and positioning arguments can be found here."
+  },
+  {
+    "objectID": "posts/ckbplotr/shape-plot-ci-arrows.html",
+    "href": "posts/ckbplotr/shape-plot-ci-arrows.html",
+    "title": "Adding arrows to confidence intervals when using shape_plot()",
+    "section": "",
+    "text": "Using ckbplotr::shape_plot() you may have confidence interval limits outside your chosen limits for the y axis. The confidence interval lines (and text labels) will extend outside the plotting area and maybe outside the plot entirely:\n\nshape_plot(ckbplotr_shape_data[ckbplotr_shape_data$is_female == 0,],\n           col.x        = \"rf\",\n           col.estimate = \"est\",\n           col.stderr   = \"se\",\n           col.n        = \"n\",\n           xlims        = c(15, 50),\n           ylims        = c(0.9, 1.8),\n           scalepoints  = TRUE)\n\n\n\n\nIf you definitely want to keep those axis limits, you may want to add arrows to the confidence interval lines. First use addaes in ckbplotr::shape_plot() to truncate the confidence interval lines (and change the position of the text):\n\np <- shape_plot(ckbplotr_shape_data[ckbplotr_shape_data$is_female == 0,],\n                col.x        = \"rf\",\n                col.estimate = \"est\",\n                col.stderr   = \"se\",\n                col.n        = \"n\",\n                xlims        = c(15, 50),\n                ylims        = c(0.9, 1.8),\n                scalepoints  = TRUE,\n                printplot    = FALSE,\n                addaes       = list(ci = c(\"ymin = pmax(0.9, est-1.96*se)\",\n                                           \"ymax = pmin(1.8, est+1.96*se)\"),\n                                    estimates = \"y = pmin(1.8, est+1.96*se)\",\n                                    n         = \"y = pmax(0.9, est-1.96*se)\"),\n                \n                ## increase the gap between the x-axis and plotting area\n                gap = c(0.025, 0.1))\n\nThen add geom_segment() layers to the plot to add small segments with arrows. Use the data argument to filter the data to only include the rows where the confidence limit is outside the axis limit.\n\np$plot +\n  geom_segment(aes(x = rf,\n                   xend = rf,\n                   y = 1.799,\n                   yend = 1.8),\n               arrow = arrow(length = unit(2, \"mm\"),\n                             type = \"closed\"),\n               data = ~ dplyr::filter(., est + 1.96 * se > 1.8)) +\n  geom_segment(aes(x = rf,\n                   xend = rf,\n                   y = 0.90001,\n                   yend = 0.9),\n               arrow = arrow(length = unit(2, \"mm\"),\n                             type = \"closed\"),\n               data = ~ dplyr::filter(., est - 1.96 * se < 0.9))"
+  },
+  {
+    "objectID": "posts/ckbplotr/removing-parts.html",
+    "href": "posts/ckbplotr/removing-parts.html",
+    "title": "Removing parts of a plot created with shape_plot() or forest_plot()",
+    "section": "",
+    "text": "forest_plot(panels   = list(resultsA, resultsB),\n            col.key  = \"variable\",\n            colour   = NA,\n            cicolour = \"black\")\n\n\n\n\n\nforest_plot(panels    = list(resultsA, resultsB),\n            col.key   = \"variable\",\n            pointsize = 0)\n\n\n\n\n\nforest_plot(panels   = list(resultsA, resultsB),\n            col.key  = \"variable\",\n            colour   = \"black\",\n            cicolour = NA)"
+  },
+  {
+    "objectID": "posts/ggplot/extract-a-ggplot-legend.html",
+    "href": "posts/ggplot/extract-a-ggplot-legend.html",
+    "title": "Extract a legend from a ggplot",
+    "section": "",
+    "text": "To extract a legend from a ggplot into a grid graphical object (grob) use:\n\nplot   <- ggplot(...) + theme(legend.position = \"none\")\ng      <- ggplotGrob(plot + theme(legend.position = \"bottom\"))$grobs\nlegend <- g[[which(sapply(g, function(x) x$name) == \"guide-box\")]]\n\nThe “legend” grob can then be arranged with other grobs/plots using gridExtra functions.\nThis code is derived from https://github.com/tidyverse/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "plotting",
+    "section": "",
+    "text": "Demonstrations of techniques for plotting with ckbplotr and ggplot2.\n\n\n\n\n\n\nckbplotr\n\n\n\n\n\n\nAdding arrows to confidence intervals when using shape_plot()\n\n\n\n\nRemoving parts of a plot created with shape_plot() or forest_plot()\n\n\n\n\nSpacing with forest_plot()\n\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggplot2\n\n\n\n\n\n\nExtract a legend from a ggplot\n\n\n\n\n\n\nNo matching items"
+  }
+]
