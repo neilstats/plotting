@@ -1,0 +1,35 @@
+---
+title: "Removing parts of a plot created with shape_plot() or forest_plot()"
+date: "2022-11-14"
+author: "Neil Wright"
+---
+
+```{r}
+#| include: false
+library(ckbplotr)
+resultsA <- dplyr::filter(ckbplotr_forest_data, name == "A")
+resultsB <- dplyr::filter(ckbplotr_forest_data, name == "B")
+```
+
+```{r}
+#| warning: false
+forest_plot(panels   = list(resultsA, resultsB),
+            col.key  = "variable",
+            colour   = NA,
+            cicolour = "black")
+```
+
+```{r}
+#| warning: false
+forest_plot(panels    = list(resultsA, resultsB),
+            col.key   = "variable",
+            pointsize = 0)
+```
+
+```{r}
+#| warning: false
+forest_plot(panels   = list(resultsA, resultsB),
+            col.key  = "variable",
+            colour   = "black",
+            cicolour = NA)
+```

@@ -1,0 +1,16 @@
+{
+  "hash": "b3e6f9e143d98ed787f7c888c73c257e",
+  "result": {
+    "markdown": "---\ntitle: \"Adding arrows to confidence intervals when using shape_plot()\"\ndate: \"2022-11-05\"\nauthor: \"Neil Wright\"\n---\n\n\n\nUsing `ckbplotr::shape_plot()` you may have confidence interval limits outside your chosen limits for the y axis. The confidence interval lines (and text labels) will extend outside the plotting area and maybe outside the plot entirely:\n\n::: {.cell}\n\n```{.r .cell-code}\nshape_plot(ckbplotr_shape_data[ckbplotr_shape_data$is_female == 0,],\n           col.x        = \"rf\",\n           col.estimate = \"est\",\n           col.stderr   = \"se\",\n           col.n        = \"n\",\n           xlims        = c(15, 50),\n           ylims        = c(0.9, 1.8),\n           scalepoints  = TRUE)\n```\n\n::: {.cell-output-display}\n![](shape-plot-ci-arrows_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n\nIf you definitely want to keep those axis limits, you may want to add arrows to the confidence interval lines. First use `addaes` in `ckbplotr::shape_plot()` to truncate the confidence interval lines (and change the position of the text):\n\n::: {.cell}\n\n```{.r .cell-code}\np <- shape_plot(ckbplotr_shape_data[ckbplotr_shape_data$is_female == 0,],\n                col.x        = \"rf\",\n                col.estimate = \"est\",\n                col.stderr   = \"se\",\n                col.n        = \"n\",\n                xlims        = c(15, 50),\n                ylims        = c(0.9, 1.8),\n                scalepoints  = TRUE,\n                printplot    = FALSE,\n                addaes       = list(ci = c(\"ymin = pmax(0.9, est-1.96*se)\",\n                                           \"ymax = pmin(1.8, est+1.96*se)\"),\n                                    estimates = \"y = pmin(1.8, est+1.96*se)\",\n                                    n         = \"y = pmax(0.9, est-1.96*se)\"),\n                \n                ## increase the gap between the x-axis and plotting area\n                gap = c(0.025, 0.1))\n```\n:::\n\n\nThen add `geom_segment()` layers to the plot to add small segments with arrows. Use the `data` argument to filter the data to only include the rows where the confidence limit is outside the axis limit.\n\n::: {.cell}\n\n```{.r .cell-code}\np$plot +\n  geom_segment(aes(x = rf,\n                   xend = rf,\n                   y = 1.799,\n                   yend = 1.8),\n               arrow = arrow(length = unit(2, \"mm\"),\n                             type = \"closed\"),\n               data = ~ dplyr::filter(., est + 1.96 * se > 1.8)) +\n  geom_segment(aes(x = rf,\n                   xend = rf,\n                   y = 0.90001,\n                   yend = 0.9),\n               arrow = arrow(length = unit(2, \"mm\"),\n                             type = \"closed\"),\n               data = ~ dplyr::filter(., est - 1.96 * se < 0.9))\n```\n\n::: {.cell-output-display}\n![](shape-plot-ci-arrows_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "shape-plot-ci-arrows_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

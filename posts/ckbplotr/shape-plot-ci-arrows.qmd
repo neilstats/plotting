@@ -1,0 +1,62 @@
+---
+title: "Adding arrows to confidence intervals when using shape_plot()"
+date: "2022-11-05"
+author: "Neil Wright"
+---
+```{r}
+#| include: false
+library(ckbplotr)
+```
+Using `ckbplotr::shape_plot()` you may have confidence interval limits outside your chosen limits for the y axis. The confidence interval lines (and text labels) will extend outside the plotting area and maybe outside the plot entirely:
+```{r}
+#| warning: false
+shape_plot(ckbplotr_shape_data[ckbplotr_shape_data$is_female == 0,],
+           col.x        = "rf",
+           col.estimate = "est",
+           col.stderr   = "se",
+           col.n        = "n",
+           xlims        = c(15, 50),
+           ylims        = c(0.9, 1.8),
+           scalepoints  = TRUE)
+```
+
+If you definitely want to keep those axis limits, you may want to add arrows to the confidence interval lines. First use `addaes` in `ckbplotr::shape_plot()` to truncate the confidence interval lines (and change the position of the text):
+```{r}
+#| warning: false
+p <- shape_plot(ckbplotr_shape_data[ckbplotr_shape_data$is_female == 0,],
+                col.x        = "rf",
+                col.estimate = "est",
+                col.stderr   = "se",
+                col.n        = "n",
+                xlims        = c(15, 50),
+                ylims        = c(0.9, 1.8),
+                scalepoints  = TRUE,
+                printplot    = FALSE,
+                addaes       = list(ci = c("ymin = pmax(0.9, est-1.96*se)",
+                                           "ymax = pmin(1.8, est+1.96*se)"),
+                                    estimates = "y = pmin(1.8, est+1.96*se)",
+                                    n         = "y = pmax(0.9, est-1.96*se)"),
+                
+                ## increase the gap between the x-axis and plotting area
+                gap = c(0.025, 0.1))
+```
+
+Then add `geom_segment()` layers to the plot to add small segments with arrows. Use the `data` argument to filter the data to only include the rows where the confidence limit is outside the axis limit.
+```{r}
+#| warning: false
+p$plot +
+  geom_segment(aes(x = rf,
+                   xend = rf,
+                   y = 1.799,
+                   yend = 1.8),
+               arrow = arrow(length = unit(2, "mm"),
+                             type = "closed"),
+               data = ~ dplyr::filter(., est + 1.96 * se > 1.8)) +
+  geom_segment(aes(x = rf,
+                   xend = rf,
+                   y = 0.90001,
+                   yend = 0.9),
+               arrow = arrow(length = unit(2, "mm"),
+                             type = "closed"),
+               data = ~ dplyr::filter(., est - 1.96 * se < 0.9))
+```

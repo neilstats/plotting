@@ -1,0 +1,16 @@
+{
+  "hash": "abe66ad7dfe6a3bdc44033a672bcb89f",
+  "result": {
+    "markdown": "---\ntitle: \"Removing parts of a plot created with shape_plot() or forest_plot()\"\ndate: \"2022-11-14\"\nauthor: \"Neil Wright\"\n---\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nforest_plot(panels   = list(resultsA, resultsB),\n            col.key  = \"variable\",\n            colour   = NA,\n            cicolour = \"black\")\n```\n\n::: {.cell-output-display}\n![](removing-parts_files/figure-html/unnamed-chunk-2-1.png){width=672}\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nforest_plot(panels    = list(resultsA, resultsB),\n            col.key   = \"variable\",\n            pointsize = 0)\n```\n\n::: {.cell-output-display}\n![](removing-parts_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nforest_plot(panels   = list(resultsA, resultsB),\n            col.key  = \"variable\",\n            colour   = \"black\",\n            cicolour = NA)\n```\n\n::: {.cell-output-display}\n![](removing-parts_files/figure-html/unnamed-chunk-4-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "removing-parts_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

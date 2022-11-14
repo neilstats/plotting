@@ -1,0 +1,7 @@
+---
+title: "Spacing with forest_plot()"
+date: "2022-08-13"
+author: "Neil Wright"
+---
+
+A PDF file explaining the `forest_plot()` spacing and positioning arguments can be found [here](make_forest_plot-spacing.pdf).

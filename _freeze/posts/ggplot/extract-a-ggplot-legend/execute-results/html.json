@@ -1,0 +1,14 @@
+{
+  "hash": "0e2500ec6d54c6e6b5193aa9ff2c143a",
+  "result": {
+    "markdown": "---\ntitle: \"Extract a legend from a ggplot\"\ndate: \"2022-08-13\"\nauthor: \"Neil Wright\"\n---\n\n\nTo extract a legend from a ggplot into a grid graphical object (grob) use:\n\n::: {.cell}\n\n```{.r .cell-code}\nplot   <- ggplot(...) + theme(legend.position = \"none\")\ng      <- ggplotGrob(plot + theme(legend.position = \"bottom\"))$grobs\nlegend <- g[[which(sapply(g, function(x) x$name) == \"guide-box\")]]\n```\n:::\n\nThe \"legend\" grob can then be arranged with other grobs/plots using gridExtra functions.\n\nThis code is derived from <https://github.com/tidyverse/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs>.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

@@ -1,0 +1,34 @@
+---
+listing:
+  - id: ckbplotr
+    contents: posts/ckbplotr
+    type: table
+    fields: [title]
+    field-display-names: 
+      title: ckbplotr
+      date: " "
+    categories: false
+    sort-ui: false
+    filter-ui: false
+  - id: ggplot
+    contents: posts/ggplot
+    type: table
+    fields: [title]
+    field-display-names: 
+      title: ggplot2
+      date: " "
+    categories: false
+    sort-ui: false
+    filter-ui: false
+page-layout: full
+title-block-banner: false
+---
+
+Demonstrations of techniques for plotting with [ckbplotr](https://neilstats.github.io/ckbplotr/) and [ggplot2](https://ggplot2.tidyverse.org/).
+
+
+:::{#ckbplotr}
+:::
+
+:::{#ggplot2}
+:::

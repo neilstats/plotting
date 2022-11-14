@@ -1,0 +1,16 @@
+---
+title: "Extract a legend from a ggplot"
+date: "2022-08-13"
+author: "Neil Wright"
+---
+
+To extract a legend from a ggplot into a grid graphical object (grob) use:
+```{r}
+#| eval: false
+plot   <- ggplot(...) + theme(legend.position = "none")
+g      <- ggplotGrob(plot + theme(legend.position = "bottom"))$grobs
+legend <- g[[which(sapply(g, function(x) x$name) == "guide-box")]]
+```
+The "legend" grob can then be arranged with other grobs/plots using gridExtra functions.
+
+This code is derived from <https://github.com/tidyverse/ggplot2/wiki/Share-a-legend-between-two-ggplot2-graphs>.
