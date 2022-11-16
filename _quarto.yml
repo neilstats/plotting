@@ -5,6 +5,9 @@ website:
   title: "plotting"
   navbar:
     background: primary
+    right:
+      - icon: github
+        href: https://github.com/neilstats
 format:
   html:
     theme: minty
@@ -12,4 +15,3 @@ format:
 
 execute:
   freeze: auto
-
