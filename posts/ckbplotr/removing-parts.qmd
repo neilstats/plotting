@@ -2,6 +2,9 @@
 title: "Removing parts of a plot created with shape_plot() or forest_plot()"
 date: "2022-11-14"
 author: "Neil Wright"
+format:
+  html:
+    toc: true
 ---
 
 ```{r}
@@ -11,7 +14,22 @@ resultsA <- dplyr::filter(ckbplotr_forest_data, name == "A")
 resultsB <- dplyr::filter(ckbplotr_forest_data, name == "B")
 ```
 
-Remove points by setting their colour to NA:
+There are various ways to remove parts of plots (or make them not appear) created with `shape_plot()` and `forest_plot()`. Which will work best may depend on how you are using the code, some examples are:
+
+### Remove text by setting a position to NA
+```{r}
+#| warning: false
+shape_plot(ckbplotr_shape_data[ckbplotr_shape_data$is_female == 0,],
+           col.x        = "rf",
+           col.estimate = "est",
+           col.stderr   = "se",
+           xlims        = c(15, 50),
+           ylims        = c(0.5, 3),
+           addarg       = list(estimates = "x = NA"))
+```
+
+
+### Remove points by setting their colour to NA
 ```{r}
 #| warning: false
 forest_plot(panels   = list(resultsA, resultsB),
@@ -20,7 +38,7 @@ forest_plot(panels   = list(resultsA, resultsB),
             cicolour = "black")
 ```
 
-Remove points by setting their size to zero:
+### Remove points by setting their size to zero
 ```{r}
 #| warning: false
 forest_plot(panels    = list(resultsA, resultsB),
@@ -28,7 +46,7 @@ forest_plot(panels    = list(resultsA, resultsB),
             pointsize = 0)
 ```
 
-Remove confidence interval lines by setting thier colour to NA:
+### Remove confidence interval lines by setting their colour to NA
 ```{r}
 #| warning: false
 forest_plot(panels   = list(resultsA, resultsB),
@@ -37,7 +55,7 @@ forest_plot(panels   = list(resultsA, resultsB),
             cicolour = NA)
 ```
 
-Remove points by removing that layer of the ggplot object:
+### Remove points by removing that layer of the ggplot object
 ```{r}
 #| warning: false
 forest <- forest_plot(panels    = list(resultsA, resultsB),
