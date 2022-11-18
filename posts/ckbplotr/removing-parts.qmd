@@ -16,7 +16,7 @@ resultsB <- dplyr::filter(ckbplotr_forest_data, name == "B")
 
 There are various ways to remove parts of plots (or make them not appear) created with `shape_plot()` and `forest_plot()`. Which will work best may depend on how you are using the code, some examples are:
 
-### Remove text by setting a position to NA
+### Remove text by setting label to NA
 ```{r}
 #| warning: false
 shape_plot(ckbplotr_shape_data[ckbplotr_shape_data$is_female == 0,],
@@ -25,9 +25,9 @@ shape_plot(ckbplotr_shape_data[ckbplotr_shape_data$is_female == 0,],
            col.stderr   = "se",
            xlims        = c(15, 50),
            ylims        = c(0.5, 3),
-           addarg       = list(estimates = "x = NA"))
+           addaes       = list(estimates = "label = NA"))
 ```
-
+You could also set `x` or `y` to `NA_real_`.
 
 ### Remove points by setting their colour to NA
 ```{r}
