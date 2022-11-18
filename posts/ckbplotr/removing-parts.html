@@ -164,7 +164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#remove-text-by-setting-a-position-to-na" id="toc-remove-text-by-setting-a-position-to-na" class="nav-link active" data-scroll-target="#remove-text-by-setting-a-position-to-na">Remove text by setting a position to NA</a></li>
+  <li><a href="#remove-text-by-setting-label-to-na" id="toc-remove-text-by-setting-label-to-na" class="nav-link active" data-scroll-target="#remove-text-by-setting-label-to-na">Remove text by setting label to NA</a></li>
   <li><a href="#remove-points-by-setting-their-colour-to-na" id="toc-remove-points-by-setting-their-colour-to-na" class="nav-link" data-scroll-target="#remove-points-by-setting-their-colour-to-na">Remove points by setting their colour to NA</a></li>
   <li><a href="#remove-points-by-setting-their-size-to-zero" id="toc-remove-points-by-setting-their-size-to-zero" class="nav-link" data-scroll-target="#remove-points-by-setting-their-size-to-zero">Remove points by setting their size to zero</a></li>
   <li><a href="#remove-confidence-interval-lines-by-setting-their-colour-to-na" id="toc-remove-confidence-interval-lines-by-setting-their-colour-to-na" class="nav-link" data-scroll-target="#remove-confidence-interval-lines-by-setting-their-colour-to-na">Remove confidence interval lines by setting their colour to NA</a></li>
@@ -205,8 +205,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <p>There are various ways to remove parts of plots (or make them not appear) created with <code>shape_plot()</code> and <code>forest_plot()</code>. Which will work best may depend on how you are using the code, some examples are:</p>
-<section id="remove-text-by-setting-a-position-to-na" class="level3">
-<h3 class="anchored" data-anchor-id="remove-text-by-setting-a-position-to-na">Remove text by setting a position to NA</h3>
+<section id="remove-text-by-setting-label-to-na" class="level3">
+<h3 class="anchored" data-anchor-id="remove-text-by-setting-label-to-na">Remove text by setting label to NA</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shape_plot</span>(ckbplotr_shape_data[ckbplotr_shape_data<span class="sc">$</span>is_female <span class="sc">==</span> <span class="dv">0</span>,],</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">col.x        =</span> <span class="st">"rf"</span>,</span>
@@ -214,11 +214,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">col.stderr   =</span> <span class="st">"se"</span>,</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">xlims        =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">50</span>),</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">ylims        =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">3</span>),</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">addarg       =</span> <span class="fu">list</span>(<span class="at">estimates =</span> <span class="st">"x = NA"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">addaes       =</span> <span class="fu">list</span>(<span class="at">estimates =</span> <span class="st">"label = NA"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="removing-parts_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>You could also set <code>x</code> or <code>y</code> to <code>NA_real_</code>.</p>
 </section>
 <section id="remove-points-by-setting-their-colour-to-na" class="level3">
 <h3 class="anchored" data-anchor-id="remove-points-by-setting-their-colour-to-na">Remove points by setting their colour to NA</h3>
