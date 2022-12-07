@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/neilstats/plotting/posts/ckbplotr/forest-plot-spacing/index.html</loc>
-    <lastmod>2022-11-18T00:58:23.034Z</lastmod>
-  </url>
-  <url>
     <loc>https://github.com/neilstats/plotting/posts/ckbplotr/shape-plot-ci-arrows.html</loc>
-    <lastmod>2022-11-18T00:58:24.159Z</lastmod>
+    <lastmod>2022-12-07T19:27:21.369Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/neilstats/plotting/posts/ckbplotr/removing-parts.html</loc>
-    <lastmod>2022-11-18T00:58:24.835Z</lastmod>
+    <lastmod>2022-12-07T19:27:22.577Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/neilstats/plotting/posts/ckbplotr/forest-plot-column.html</loc>
+    <lastmod>2022-12-07T19:27:23.325Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/neilstats/plotting/posts/ckbplotr/forest-plot-spacing/index.html</loc>
+    <lastmod>2022-12-07T19:27:23.773Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/neilstats/plotting/posts/ggplot/extract-a-ggplot-legend.html</loc>
-    <lastmod>2022-11-18T00:58:25.451Z</lastmod>
+    <lastmod>2022-12-07T19:27:24.429Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/neilstats/plotting/index.html</loc>
-    <lastmod>2022-11-18T00:58:25.858Z</lastmod>
+    <lastmod>2022-12-07T19:27:24.865Z</lastmod>
   </url>
 </urlset>
