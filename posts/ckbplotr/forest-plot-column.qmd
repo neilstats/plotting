@@ -1,0 +1,141 @@
+---
+title: "Adding columns of text to forest plots (but not every panel)"
+date: "2022-12-07"
+author: "Neil Wright"
+format:
+  html:
+    toc: true
+---
+```{r}
+#| include: false
+library(ckbplotr)
+resultsA <- dplyr::filter(ckbplotr_forest_data, name == "A")
+resultsB <- dplyr::filter(ckbplotr_forest_data, name == "B")
+```
+
+
+In the `ckbplotr::forest_plot()` function the `col.left` and `col.right` arguments can be used to add columns of text to the plot - and they will add these columns for each panel in the plot.
+
+**But what if we want to add a column to only the left or right of all panels?**
+
+To do this, set text we do not want plotted as missing and adjust the `mid.space` argument to remove unwanted extra space. For example...
+
+First create a plot without the additional column:
+
+```{r}
+#| warning: false
+forest_plot(panels            = list(resultsA, resultsB),
+            col.key           = "variable",
+            row.labels        = ckbplotr_row_labels,
+            row.labels.levels = c("heading", "subheading", "label"),
+            rows              = c("Triglycerides concentration",
+                                  "Lipoprotein particle concentration"),
+            exponentiate      = TRUE,
+            panel.headings    = c("Analysis A", "Analysis B"),
+            ci.delim          = " - ",
+            xlim              = c(0.9, 1.1),
+            xticks            = c(0.9, 1, 1.1),
+            blankrows         = c(1, 1, 0, 1),
+            scalepoints       = TRUE,
+            pointsize         = 3,
+            col.heading.space = 1.5)
+```
+
+Note the automatically calculated value for `left.space` is `unit(2.9, "mm")`, and for `right.space` is `unit(25.5, "mm")`. (These are shown in the RStudio Viewer pane.)
+
+Now create the plot with the additional column `n` using `col.left` (or `col.right` as applicable).
+```{r}
+forest_plot(panels            = list(resultsA, resultsB),
+            col.key           = "variable",
+            row.labels        = ckbplotr_row_labels,
+            row.labels.levels = c("heading", "subheading", "label"),
+            rows              = c("Triglycerides concentration",
+                                  "Lipoprotein particle concentration"),
+            exponentiate      = TRUE,
+            panel.headings    = c("Analysis A", "Analysis B"),
+            ci.delim          = " - ",
+            xlim              = c(0.9, 1.1),
+            xticks            = c(0.9, 1, 1.1),
+            blankrows         = c(1, 1, 0, 1),
+            scalepoints       = TRUE,
+            pointsize         = 3,
+            col.heading.space = 1.5,
+            
+            col.left          = "n",
+            col.left.heading  = "No. of\nevents")
+```
+
+Note that the automatically calculated `col.left` is now `unit(12.9, "mm")`. That is, there is now 10mm more space to the left of each panel for the added column of text.
+
+To remove the column for the second panel, set the text to be plotted as missing and use a list for `col.left.heading` so that the heading is missing for the second panel.
+```{r}
+resultsB$n <- NA
+
+forest_plot(panels            = list(resultsA, resultsB),
+            col.key           = "variable",
+            row.labels        = ckbplotr_row_labels,
+            row.labels.levels = c("heading", "subheading", "label"),
+            rows              = c("Triglycerides concentration",
+                                  "Lipoprotein particle concentration"),
+            exponentiate      = TRUE,
+            panel.headings    = c("Analysis A", "Analysis B"),
+            ci.delim          = " - ",
+            xlim              = c(0.9, 1.1),
+            xticks            = c(0.9, 1, 1.1),
+            blankrows         = c(1, 1, 0, 1),
+            scalepoints       = TRUE,
+            pointsize         = 3,
+            col.heading.space = 1.5,
+            
+            col.left          = "n",
+            col.left.heading  = list("No. of\nevents", NA))
+```
+
+To remove the extra 10mm of space between the panels, we subtract this from `mid.space` (which by default is 5mm):
+```{r}
+forest_plot(panels            = list(resultsA, resultsB),
+            col.key           = "variable",
+            row.labels        = ckbplotr_row_labels,
+            row.labels.levels = c("heading", "subheading", "label"),
+            rows              = c("Triglycerides concentration",
+                                  "Lipoprotein particle concentration"),
+            exponentiate      = TRUE,
+            panel.headings    = c("Analysis A", "Analysis B"),
+            ci.delim          = " - ",
+            xlim              = c(0.9, 1.1),
+            xticks            = c(0.9, 1, 1.1),
+            blankrows         = c(1, 1, 0, 1),
+            scalepoints       = TRUE,
+            pointsize         = 3,
+            col.heading.space = 1.5,
+            
+            col.left          = "n",
+            col.left.heading  = list("No. of\nevents", NA),
+            mid.space         = unit(5, "mm") - unit(10, "mm"))
+```
+
+To do something similar for a column (`nb`) on the right on the plot:
+```{r}
+resultsA$nb <- NA
+
+forest_plot(panels            = list(resultsA, resultsB),
+            col.key           = "variable",
+            row.labels        = ckbplotr_row_labels,
+            row.labels.levels = c("heading", "subheading", "label"),
+            rows              = c("Triglycerides concentration",
+                                  "Lipoprotein particle concentration"),
+            exponentiate      = TRUE,
+            panel.headings    = c("Analysis A", "Analysis B"),
+            ci.delim          = " - ",
+            xlim              = c(0.9, 1.1),
+            xticks            = c(0.9, 1, 1.1),
+            blankrows         = c(1, 1, 0, 1),
+            scalepoints       = TRUE,
+            pointsize         = 3,
+            col.heading.space = 1.5,
+            
+            col.right         = "nb",
+            col.right.heading = list(c("HR (95% CI)", NA),
+                                     c("HR (95% CI)", "No. of\nevents")),
+            mid.space         = unit(5, "mm") - unit(12.1, "mm"))
+```
